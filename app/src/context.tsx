@@ -1,35 +1,19 @@
-import React, { useReducer, useContext, createContext, Dispatch } from 'react';
+import React from 'react';
+import { Todo, TodoContextType, updateDTO } from './@types/todo';
 
 
-export type Todo = {
-  id: number,
-  value: string,
-  isDid: boolean
-}
 
-export type TodoContextType = {
-  todos: Todo[],
-  addTodo: (value: string) => void,
-  updateTodo: (value: updateDTO) => void,
-  deleteTodo: (id: number) => void,
-  toggleTodo: (id: number) => void
-}
+export const TodoContext = React.createContext<TodoContextType | null>(null);
 
-type updateDTO = { id: number, todo: string }
 
-const TodoContext = React.createContext<TodoContextType | null>(null);
-
-interface Props {
-  children: React.ReactNode;
-}
-
-const TodoProvider : React.FC<Props> = ({children}) => {
+const TodoProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
   const [todos, setTodos] = React.useState<Todo[]>([])
   
   const addTodo = (value: string) => {
     let todo = {id: 0, value: value, isDid: false}
-    todo.id = !!todos.pop() ? todos[todos.length].id + 1 : 0
-    setTodos(todos.concat(todo));
+    todo.id = todos.length !== 0 ? todos[todos.length - 1].id + 1 : 0
+    console.log(todo)
+    setTodos([...todos, todo]);
   }
 
   const updateTodo = (value: updateDTO) => {

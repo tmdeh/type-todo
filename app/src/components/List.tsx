@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
-import { Todo } from '../context';
+import { TodoContextType } from '../@types/todo';
+import { TodoContext } from '../context';
 import Item from './Item';
 
 const ListElement = styled.div`
   
 `
 
-
-
 const List: React.FC = () => {
-  const [todos, setTodos] = useState<Todo[]>([]);
+  const { todos } = useContext(TodoContext) as TodoContextType;
   return <ListElement>
-    <Item todo={todos[0]} />
+    {todos.map(v => {
+      return <Item todo={v} key={v.id}/>
+    })}
   </ListElement>
 }
 
