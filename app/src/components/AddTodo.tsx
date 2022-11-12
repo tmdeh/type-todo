@@ -1,5 +1,7 @@
 import React, { useContext, useState } from "react";
-import { Todo, TodoContextType } from "../@types/todo";
+import { TodoContextType } from "../@types/todo";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Button, FormCheck, FormControl } from "react-bootstrap"
 import { TodoContext } from "../context";
 
 const AddTodo: React.FC = () => {
@@ -12,7 +14,9 @@ const AddTodo: React.FC = () => {
 
   const handleSaveTodo = (e: React.FormEvent) => {
     e.preventDefault();
-    addTodo(data);
+    if(!!data) {
+      addTodo(data);
+    }
   };
 
 
@@ -24,7 +28,6 @@ const AddTodo: React.FC = () => {
         <input onChange={handleForm} type="text" id="title" />
       </div>
     </div>
-    <button disabled={data === undefined ? true : false}>Add Todo</button>
   </form>)
 }
 

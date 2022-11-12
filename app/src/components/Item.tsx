@@ -1,14 +1,25 @@
 import React, { ChangeEventHandler, useContext, useState } from 'react';
 import styled from 'styled-components';
+import { Button, FormCheck, FormControl } from "react-bootstrap"
 import { Todo, TodoContextType } from '../@types/todo';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { TodoContext } from '../context';
 
 const ItemElement = styled.div`
   display: flex;
+  justify-content: center;
 `
 
 const Text = styled.div<{ isDid: Boolean }>`
   ${props => props.isDid ? "text-decoration: line-through" : null};
+`
+const Wrapper = styled.div`
+  display: flex;
+  width: 100%;
+`
+
+const ButtonGroup = styled.div`
+  
 `
 
 const Item: React.FC<{ todo: Todo }> = ({ todo }) => {
@@ -36,12 +47,13 @@ const Item: React.FC<{ todo: Todo }> = ({ todo }) => {
   //TODO 삭제 기능
 
   return <ItemElement>
-    <div><input type="checkbox" onChange={handleCheck} /></div>
+    <div><FormCheck onChange={handleCheck} /></div>
     <div>{change ?
       <div>
-        <input type="text" value={changeValue} onChange={handleChange} />
-        <button onClick={handleClickChangeComplete}>완료</button>
-      </div> : <div><button onClick={() => setChange(true)}>수정</button><button onClick={() => deleteTodo(todo.id)}>삭제</button><Text isDid={todo.isDid}>{todo.value}</Text></div>}</div>
+        <FormControl value={changeValue} onChange={handleChange} />
+        <Button onClick={handleClickChangeComplete} variant="success">완료</Button>
+      </div> : <Wrapper><Text isDid={todo.isDid}>{todo.value}</Text><ButtonGroup><Button onClick={() => setChange(true)} variant="primary">수정</Button><Button onClick={() => deleteTodo(todo.id)} variant="danger">삭제</Button></ButtonGroup></Wrapper>}
+      </div>
   </ItemElement>
 }
 
