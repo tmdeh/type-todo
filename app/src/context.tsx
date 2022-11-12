@@ -12,7 +12,6 @@ const TodoProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
   const addTodo = (value: string) => {
     let todo = {id: 0, value: value, isDid: false}
     todo.id = todos.length !== 0 ? todos[todos.length - 1].id + 1 : 0
-    console.log(todo)
     setTodos([...todos, todo]);
   }
 
@@ -26,7 +25,7 @@ const TodoProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
   }
 
   const deleteTodo = (id: number) => {
-    setTodos(todos.filter((v, i) => i !== v.id))
+    setTodos(todos.filter((v, i) => id !== v.id))
   }
 
   const toggleTodo = (id: number) => {
